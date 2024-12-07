@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      platforms:
+        # - "linux/amd64"
+        - "linux/arm64"
+    image: tagger-backend:latest
+    volumes:
+      - ./uploads:/app/uploads
+      - ./output:/app/output
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      platforms:
+        # - "linux/amd64"
+        - "linux/arm64"
+    image: tagger-frontend:latest
+    ports:
+      - "80:80"
+    volumes:
+      # - ./nginx.ecs.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
