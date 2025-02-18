@@ -139,5 +139,4 @@ Error responses follow the format:
 - The server accepts only MP3 files
 - Files are stored with unique IDs to prevent conflicts
 - Automatic file cleanup on schedule
-- Running this application behind a proxy such as NGINX
 - Consider implementing authentication for production use
